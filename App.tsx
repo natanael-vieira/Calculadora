@@ -1,118 +1,57 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
+import React, {Component} from 'react'
+import {Platform, StyleSheet, Text, View} from 'react-native'
+import Button from './SRC/Components/Button';
+import Display from './SRC/Components/Display';
 
-import React from 'react';
-import type {PropsWithChildren} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+export default class App extends Component {
+  state = {
+    displayValue: '0'
+  }
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+  addDigit = (n: any) => {
+    this.setState({ displayValue: n })
+  }
 
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
+  clearMemory = () => {
+    this.setState({ displayValue: '0' })
+  }
 
-function Section({children, title}: SectionProps): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-}
+  setOperation = () => {}
 
-function App(): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
-  return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
+  render() {
+    return (
+      <View style={styles.container}>
+        <Display value={this.state.displayValue} />
+        <View style={styles.buttons}>
+        <Button label='AC' triple onClick={this.clearMemory} />
+        <Button label='/' operation onClick={this.setOperation} />
+        <Button label='7' onClick={this.addDigit} />
+        <Button label='8' onClick={this.addDigit} />
+        <Button label='9' onClick={this.addDigit} />
+        <Button label='*' operation onClick={this.setOperation} />
+        <Button label='4' onClick={this.addDigit} />
+        <Button label='5' onClick={this.addDigit} />
+        <Button label='6' onClick={this.addDigit} />
+        <Button label='-' operation onClick={this.setOperation} />
+        <Button label='1' onClick={this.addDigit} />
+        <Button label='2' onClick={this.addDigit} />
+        <Button label='3' onClick={this.addDigit} />
+        <Button label='+' operation onClick={this.setOperation} />
+        <Button label='0' double onClick={this.addDigit} />
+        <Button label='.' onClick={this.addDigit}/>
+        <Button label='=' operation onClick={this.setOperation} />
         </View>
-      </ScrollView>
-    </SafeAreaView>
-  );
+      </View>
+    )
+  }
 }
 
 const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
+  container: {
+    flex: 1,
   },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
-
-export default App;
+  buttons: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+  }
+})
