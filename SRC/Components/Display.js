@@ -1,29 +1,27 @@
+
 import React from 'react'
-import {StyleSheet, Text, View, ScrollView} from 'react-native'
+import {
+    StyleSheet,
+    Text,
+    View,
+} from 'react-native'
 
 const styles = StyleSheet.create({
-    display:{
-        flex:1.4,
-        padding: 8,
+    display: {
+        flex: 1,
+        padding: 20,
         justifyContent: 'center',
         backgroundColor: 'rgba(0,0,0,0.6)',
         alignItems: 'flex-end',
     },
-
-    displayValue:{
+    displayValue: {
         fontSize: 60,
         color: '#fff',
-
     }
 })
 
-export default porps => 
-
+export default props => 
     <View style={styles.display}>
-        <ScrollView horizontal={true}>
-            <Text style={styles.displayValue} numberOfLines={1}> 
-             {porps.value}
-             </Text>
-        </ScrollView>
-        
+        <Text style={styles.displayValue}
+            numberOfLines={1}>{props.value}</Text>
     </View>
