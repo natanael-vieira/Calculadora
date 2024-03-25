@@ -2,9 +2,7 @@ import React, {Component} from 'react'
 import {StyleSheet, Text, View, ScrollView, TouchableHighlightBase} from 'react-native'
 import Button from './src/components/Button'
 import Display from './src/components/Display'
-import DisplayMemory from './src/DisplayMemory'
 
-//Falta corrigir funcionalidade de mudar o sinal
 
 //Constante que define o estado inicial da aplicação
 const initialState = {
@@ -44,7 +42,7 @@ export default class App extends Component{
   //cria um clone do objeto initialStade no escopo da classe App
   state = {...initialState}
 
-  addDigit = n => {
+  addDigit = (n: string | number) => {
 
      //cria a constante local para verificar atribuir o estado do display
     const clearDisplay = this.state.displayValue === '0' || this.state.clearDisplay
@@ -110,7 +108,7 @@ export default class App extends Component{
   }
 
   //É chamada quando é inserida alguma das operações: ( + - / * = )
-  setOperation = operation => {     
+  setOperation = (operation: string | null) => {     
     if(this.state.values[1] === 0 && operation === '='){
           return
       }
@@ -193,38 +191,13 @@ export default class App extends Component{
     }
   }
 
-  mudarSinal = () => {
-    
-    
-  if(this.state.values[0] !== 0 || this.state.values[1] !== 0){
-
-    if(this.state.equalBool === false){
-      this.setState({displayValue: this.state.displayValue * -1})
-      this.state.values[this.state.current] =  this.state.values[this.state.current] * -1
-    }else{
-      this.setState({displayValue: this.state.displayValue * -1})
-      this.state.values[this.state.current-1] =  this.state.values[this.state.current-1] * -1
-    }
-
-
-    if(this.state.values[this.state.current] === 0){
-      this.setState({displayMemory: this.state.displayMemory + '  +/-  ' + this.state.values[this.state.current-1]}) 
-    }else{
-      this.setState({displayMemory: this.state.displayMemory + '  +/-  ' + this.state.values[this.state.current] }) 
-    }
-
-    }
-  }
   
-
   render(){
     return(      
       <View style={styles.container}>
-        <DisplayMemory value={this.state.displayMemory}></DisplayMemory>             
         <Display value={this.state.displayValue}></Display>
         <View style={styles.buttons}>
           <Button label='AC' double onClick={this.clearMemory}/>
-          <Button label='+/-' onClick={this.mudarSinal}/>          
           <Button label='/' operation onClick={() => this.setOperation('/')}/>
           <Button label='7' onClick={() => this.addDigit(7)} />
           <Button label='8' onClick={() => this.addDigit(8)}/> 
